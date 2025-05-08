@@ -1,0 +1,18 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Start/Stop Win11 VM
+Comment=Start or shutdown the virtual machine
+Exec=gnome-terminal -- bash -c "/opt/qemu-vm-helper/win11.sh show"
+Icon=/opt/qemu-vm-helper/windows.png
+Terminal=false
+Categories=Utility;
+Actions=start-machine;stop-machine;
+
+[Desktop Action start-machine]
+Name=Start Machine
+Exec=gnome-terminal -- bash -c "/opt/qemu-vm-helper/win11.sh start"
+[Desktop Action stop-machine]
+Name=Stop Machine
+Exec=gnome-terminal -- bash -c "/opt/qemu-vm-helper/win11.sh stop"
+
