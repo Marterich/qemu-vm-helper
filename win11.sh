@@ -11,7 +11,7 @@ start_vm() {
     # Check if the start command was successful
     if [ $? -eq 0 ]; then
         echo "Virtual machine '$VMNAME' started successfully."
-        nohup virt-viewer "$VMNAME" &>/dev/null & 
+        virt-manager --connect qemu:///system --show-domain-console $VMNAME
     else
         echo "Failed to start the virtual machine '$VMNAME'."
     fi
@@ -33,7 +33,7 @@ elif [[ $ACTION == "show" ]]; then
     if virsh list --all | grep -q "$VMNAME"; then
         status=$(virsh list --all | grep "$VMNAME" | awk '{print $3}')
         if [ "$status" == "running" ]; then
-            nohup virt-viewer "$VMNAME" &>/dev/null
+            virt-manager --connect qemu:///system --show-domain-console $VMNAME
         else
             start_vm "$VMNAME"
             sleep 5
@@ -42,17 +42,3 @@ elif [[ $ACTION == "show" ]]; then
 else
     echo "Virtual machine '$VMNAME' does not exist."
 fi
-
-#if virsh list --all | grep -q "$VMNAME"; then
-#    status=$(virsh list --all | grep "$VMNAME" | awk '{print $3}')
-#    if [ "$status" = "running" ]; then
-#        shutdown_vm "$VMNAME"
-#    else
-#        start_vm "$VMNAME"
-#    fi
-#else
-#    echo "Virtual machine '$VMNAME' does not exist."
-#fi
-sleeptime="5"
-#echo "Sleep for '$sleeptime' seconds"
-#sleep $sleeptime
